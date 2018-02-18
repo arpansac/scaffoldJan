@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @post.content %>
+</p>
+<p>Created By: <%= @post.user.email %></p>
+
+<h5>Add Comment</h5>
+<%= form_for @comment do |f| %>
+	<input type="hidden" name="comment[post_id]" value="<%=@post.id%>">
+	<%= f.label :content %>
+	<%= f.text_field :content %>
+	<%= f.submit %>
+<% end %>
+<h5>Comments</h5>
+<% @post.comments.each do |comment| %>
+	<p class="comment">
+		<%= comment.content %> <sub>by <%=comment.user.email%></sub>
+	</p>
+<% end %>
+
+
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
