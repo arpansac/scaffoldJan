@@ -8,3 +8,11 @@ var newComment = $('<%= escape_javascript render "comments/comment", comment: @n
 commentsContainer.append(newComment);
 
 $('#comment_content').val('');
+
+
+new Noty({
+	theme: 'relax',
+    text: 'Comment: <%= @new_comment.content %>',
+	type: 'success',
+    layout: 'topRight'
+}).show();
