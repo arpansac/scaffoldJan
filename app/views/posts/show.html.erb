@@ -12,20 +12,30 @@
 <p>Created By: <%= @post.user.email %></p>
 
 <h5>Add Comment</h5>
-<%= form_for @comment do |f| %>
+<%= form_for @comment, remote: true do |f| %>
 	<input type="hidden" name="comment[post_id]" value="<%=@post.id%>">
 	<%= f.label :content %>
 	<%= f.text_field :content %>
 	<%= f.submit %>
 <% end %>
 <h5>Comments</h5>
-<% @post.comments.each do |comment| %>
-	<p class="comment">
-		<%= comment.content %> <sub>by <%=comment.user.email%></sub>
-	</p>
-<% end %>
+
+<div id="comments-container">
+	<% @post.comments.each do |cm| %>
+	<!-- cm is passed on as a comment variable to the partial -->
+	<%= render 'comments/comment', comment: cm %>
+	<% end %>
+</div>
+
 
 
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>
+
+
+
+
+
+
+
